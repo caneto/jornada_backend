@@ -1,0 +1,11 @@
+version: '3'
+services:
+  db:
+    image: mariadb:10.11
+    ports:  
+      - 8080:3306
+    environment:
+      MYSQL_DATABASE: cuidapet_db
+      MYSQL_ROOT_PASSWORD: cuidapet
+    volumes:
+      - ../mysql_data:/var/lib/mysql
