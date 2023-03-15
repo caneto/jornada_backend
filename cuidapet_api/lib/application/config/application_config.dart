@@ -5,7 +5,6 @@ import 'package:dotenv/dotenv.dart';
 import 'package:get_it/get_it.dart';
 
 class ApplicationConfig {
-
   late DotEnv env;
 
   Future<void> loadConfigApplication() async {
@@ -15,7 +14,7 @@ class ApplicationConfig {
   }
 
   Future<void> _loadEnv() async {
-     env = DotEnv(includePlatformEnvironment: true)..load();
+    env = DotEnv(includePlatformEnvironment: true)..load();
   }
 
   void _loadDatabaseConfig() {
@@ -29,6 +28,7 @@ class ApplicationConfig {
 
     GetIt.I.registerSingleton(databaseConfig);
   }
-  
-  void _configLogger() => GetIt.I.registerLazySingleton<ILogger>(() => ILoggerImpl());
+
+  void _configLogger() =>
+      GetIt.I.registerLazySingleton<ILogger>(() => ILoggerImpl());
 }
