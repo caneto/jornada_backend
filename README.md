@@ -12,35 +12,25 @@
       <b>Introdução</b> (Indodução a Backend), (Get_It e Injectable principais conseitos), (Arquitetura do nosso backend), (Informação Importante sobre refactory)
     </td>
     <td>
-      <b>Iniciação nosso projeto (Configuração/Arquitetura)</b> (Entendendo debug no Flutter e suas ferramentas), (Break point condicional)
+      <b>Iniciação nosso projeto (Configuração/Arquitetura)</b> (Criando o projeto), (Configurando variáveis locais (.env)), (Instalando o Mysql Local (importante)), (Configurando MySql na Docker), (Criando classe de conexão com o banco de dados), (Configurando esturura de Logs), (Cofnigrando Service Locator (get_it, injectable), (Atualizando Shelf para null safety), (Configurando estrutura de Rotas (Shelf-Router))
     </td>
     <td>
-      <b>Fundamentos</b> (O que é Flutter), (Widget o que é), (StateLessWidget e StateFullWidget), (Arvore de Componentes), (Clico de Vida), (Executando funções depois da tela pronta (addPostFrameCallback))
+      <b>Middlewares</b> 
     </td>
   </tr>
   
   <tr>
     <td> 
-      <b>Flutter - Principio</b> (Principais Widgets, Container, Imagens, Customizando as Fontes)
+      
     </td>
     <td>
-      <b>Navegação</b> (Conceitos, Mão Na massa, Passagem de Parametros, Gerenciando e Observando navegação, Aguardar retorno de parâmetros na navegação)
+      
     </td>
     <td>
-      <b>Flutter - Widgets</b> (PopupMenuButton, Row e Columns, MediaQuery, Device Preview Package, LayoutBuilder, Botões Rotações e Texto, SingleChildScrollView e ListView, Dialogs, Identificando a plataforma e mostrando o componente correto, BuildContext,Theme (Customizando o seu Tema), Snackbar (Mensagens para o usuário),Trabalhando com formulários, Lendo arquivo json do Assets, Stack Entendendo o Widget, Mostrando o poder do Widget Stack, BottomNavigatorBar & IndexedStack, CircleAvatar, Trabalhando com cores, Material Banner, Desafio)      
+      
     </td>
   </tr>
   
-  <tr>
-    <td> 
-      <b>Gerência de Estado</b> (O que vamos ver nesse módulo, Criando projeto e montando layout, Construindo tela com setState, Construindo tela com ValueNotifier, Construindo tela com ChangeNotifier, Construindo tela com Bloc Pattern(Stream))
-    </td>
-    <td>
-      <b>InheritedWidget</b> (Implementando InheritedWidget,Entendendo arvore de widgets com Dart DevTools)
-    </td>
-    <td>
-      <b>Splash Screen Native</b> (Splash nativa no android, Splash nativa no iOS)
-    </td>
   </tr>
 </table> 
 
