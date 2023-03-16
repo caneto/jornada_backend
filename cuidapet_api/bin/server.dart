@@ -27,7 +27,7 @@ void main(List<String> args) async {
   final handler = Pipeline().addMiddleware(logRequests()).addHandler(_router);
 
   final appConfig = ApplicationConfig();
-  appConfig.loadConfigApplication();
+  appConfig.loadConfigApplication(_router);
 
   // For running in containers, we respect the PORT environment variable.
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
