@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cuidapet_api/application/config/application_config.dart';
+import 'package:cuidapet_api/application/middlewares/cors/cors_middleweres.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -24,7 +25,10 @@ void main(List<String> args) async {
   final ip = InternetAddress.anyIPv4;
 
   // Configure a pipeline that logs requests.
-  final handler = Pipeline().addMiddleware(logRequests()).addHandler(_router);
+  final handler = Pipeline()
+    .addMiddleware(CorsMiddleweres().handler)
+    .addMiddleware(logRequests())
+    .addHandler(_router);
 
   final appConfig = ApplicationConfig();
   appConfig.loadConfigApplication(_router);
