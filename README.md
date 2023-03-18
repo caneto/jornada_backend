@@ -21,6 +21,7 @@
   
   <tr>
     <td> 
+      <b>Módulo usuário</b> (Modelagem de dados)
     </td>
     <td>
     </td>
