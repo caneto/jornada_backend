@@ -15,13 +15,13 @@
       <b>Iniciação nosso projeto (Configuração/Arquitetura)</b> (Criando o projeto), (Configurando variáveis locais (.env)), (Instalando o Mysql Local (importante)), (Configurando MySql na Docker), (Criando classe de conexão com o banco de dados), (Configurando esturura de Logs), (Cofnigrando Service Locator (get_it, injectable), (Atualizando Shelf para null safety), (Configurando estrutura de Rotas (Shelf-Router))
     </td>
     <td>
-      <b>Middlewares</b> (Introdução a middlewares no shelf), (Construindo Middleware de Cors), (Middleware de Default Content Type Response), (JWT - Conceitos), (Middleware de segurança), (Registrar usuário)
+      <b>Middlewares</b> (Introdução a middlewares no shelf), (Construindo Middleware de Cors), (Middleware de Default Content Type Response), (JWT - Conceitos), (Middleware de segurança)
     </td>
   </tr>
   
   <tr>
     <td> 
-      <b>Módulo usuário</b> (Modelagem de dados)
+      <b>Módulo usuário</b> (Modelagem de dados), (Registro usuário), (Login com e-mail e password)
     </td>
     <td>
     </td>
