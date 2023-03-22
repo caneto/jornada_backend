@@ -7,13 +7,11 @@ import './i_user_service.dart';
 
 @LazySingleton(as: IUserService)
 class IUserServiceImpl implements IUserService {
-
   IUserRepository userRepository;
 
   IUserServiceImpl({
     required this.userRepository,
   });
-  
 
   @override
   Future<User> createUser(UserSaveInputModel user) {
@@ -25,7 +23,10 @@ class IUserServiceImpl implements IUserService {
     );
 
     return userRepository.createUser(userEntity);
-
   }
 
+  @override
+  Future<User> loginWithEmailPassword(
+          String email, String password, bool supplierUser) =>
+      userRepository.loginWithEmailPassword(email, password, supplierUser);
 }
