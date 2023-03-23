@@ -21,7 +21,7 @@
   
   <tr>
     <td> 
-      <b>Módulo usuário</b> (Modelagem de dados), (Registro usuário), (Login com e-mail e password)
+      <b>Módulo usuário</b> (Modelagem de dados), (Registro usuário), (Login com e-mail e password), (Login social)
     </td>
     <td>
     </td>
