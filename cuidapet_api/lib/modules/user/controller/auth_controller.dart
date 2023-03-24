@@ -40,14 +40,14 @@ class AuthController {
         user = await userService.loginWithEmailPassword(loginViewModel.login,
             loginViewModel.password!, loginViewModel.supplierUser);
       } else {
-        //loginViewModel.loginSocialValidate();
+        loginViewModel.loginSocialValidate();
         // Social Login (Facebook, google, apple, etc...)
-        //user = await userService.loginWithSocial(
-        //    loginViewModel.login,
-        //    loginViewModel.avatar,
-        //    loginViewModel.socialType!,
-        //    loginViewModel.socialKey!);
-        user=User();
+        user = await userService.loginWithSocial(
+            loginViewModel.login,
+            loginViewModel.avatar,
+            loginViewModel.socialType!,
+            loginViewModel.socialKey!);
+        
       }
 
       return Response.ok(jsonEncode({

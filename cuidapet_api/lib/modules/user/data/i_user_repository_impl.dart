@@ -102,4 +102,48 @@ class IUserRepositoryImpl implements IUserRepository {
       await conn?.close();
     }
   }
+
+  @override
+  Future<User> loginEmailSocialKey(
+      String email, String socialKey, String socialType) async {
+    MySqlConnection? conn;
+
+    try {
+      conn = await connection.openConnection();
+
+      final result =
+          await conn.query('select * from usuario where email = ?', [email]);
+
+      if (result.isEmpty) {
+        log.error('usuário não encontrado!!!!');
+        throw UserNotfoundException(message: 'Usuário não encontrado');
+      } else {
+        final dataMysql = result.first;
+        if (dataMysql['social_id'] == null ||
+            dataMysql['social_id'] != socialKey) {
+          await conn.query('''
+            update usuario
+            set social_id = ?, tipo_cadastro = ?
+            where id = ? 
+            ''', [
+            socialKey,
+            socialType,
+            dataMysql['id'],
+          ]);
+        }
+
+        return User(
+            id: dataMysql['id'] as int,
+            email: dataMysql['email'],
+            registerType: dataMysql['tipo_cadastro'],
+            iosToken: (dataMysql['ios_token'] as Blob?)?.toString(),
+            androidToken: (dataMysql['android_token'] as Blob?)?.toString(),
+            refreshToken: (dataMysql['refresh_token'] as Blob?)?.toString(),
+            imageAvatar: (dataMysql['img_avatar'] as Blob?)?.toString(),
+            supplierId: dataMysql['fornecedor_id']);
+      }
+    } finally {
+      await conn?.close();
+    }
+  }
 }
