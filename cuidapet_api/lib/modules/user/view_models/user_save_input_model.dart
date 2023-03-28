@@ -1,5 +1,5 @@
 
-import 'package:cuidapet_api/application/helpers/resqust_mapping.dart';
+import 'package:cuidapet_api/application/helpers/resquest_mapping.dart';
 
 class UserSaveInputModel extends RequestMapping {
   late String email;
