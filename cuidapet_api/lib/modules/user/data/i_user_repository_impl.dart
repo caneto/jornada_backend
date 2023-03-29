@@ -25,7 +25,8 @@ class IUserRepositoryImpl implements IUserRepository {
     late final MySqlConnection? conn;
     try {
       conn = await connection.openConnection();
-      final query = ''' 
+      final query =
+          ''' 
         insert usuario(email, tipo_cadastro, img_avatar, senha, fornecedor_id, social_id) 
         value(?,?,?,?,?,?)
       ''';
@@ -61,7 +62,8 @@ class IUserRepositoryImpl implements IUserRepository {
     try {
       conn = await connection.openConnection();
 
-      var query = '''
+      var query =
+          '''
         select * 
         from usuario 
         where 
@@ -121,15 +123,17 @@ class IUserRepositoryImpl implements IUserRepository {
         final dataMysql = result.first;
         if (dataMysql['social_id'] == null ||
             dataMysql['social_id'] != socialKey) {
-          await conn.query('''
+          await conn.query(
+              '''
             update usuario
             set social_id = ?, tipo_cadastro = ?
             where id = ? 
-            ''', [
-            socialKey,
-            socialType,
-            dataMysql['id'],
-          ]);
+            ''',
+              [
+                socialKey,
+                socialType,
+                dataMysql['id'],
+              ]);
         }
 
         return User(
@@ -155,14 +159,15 @@ class IUserRepositoryImpl implements IUserRepository {
       conn = await connection.openConnection();
 
       final setParams = {};
-      
+
       if (user.iosToken != null) {
         setParams.putIfAbsent('ios_token', () => user.iosToken);
       } else {
         setParams.putIfAbsent('android_token', () => user.androidToken);
       }
 
-       final query = ''' 
+      final query =
+          ''' 
         update usuario
         set 
           ${setParams.keys.elementAt(0)} = ?,
@@ -174,7 +179,23 @@ class IUserRepositoryImpl implements IUserRepository {
           query, [setParams.values.elementAt(0), user.refreshToken!, user.id!]);
     } on MySqlException catch (e, s) {
       log.error('Erro ao confirmar login', e, s);
-      throw DatabaseException();      
+      throw DatabaseException();
+    } finally {
+      await conn?.close();
+    }
+  }
+
+  @override
+  Future<void> updateRefreshToken(User user) async {
+    MySqlConnection? conn;
+
+    try {
+      conn = await connection.openConnection();
+
+      await conn.query('update usuario set refresh_token = ? where id = ?', [
+        user.refreshToken!,
+        user.id!
+      ]);
     } finally {
       await conn?.close();
     }
