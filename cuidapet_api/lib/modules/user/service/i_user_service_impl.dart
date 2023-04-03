@@ -75,10 +75,12 @@ class IUserServiceImpl implements IUserService {
   }
 
   @override
-  Future<RefreshTokenViewModel> refreshToken(UserRefreshTokenInputModel model) async {
+  Future<RefreshTokenViewModel> refreshToken(
+      UserRefreshTokenInputModel model) async {
     _validateRefreshToken(model);
     final newAccessToken = JwtHelper.generateJWT(model.user, model.supplier);
-    final newRefreshToken = JwtHelper.refreshToken(newAccessToken.replaceAll('Bearer ', ''));
+    final newRefreshToken =
+        JwtHelper.refreshToken(newAccessToken.replaceAll('Bearer ', ''));
 
     final user = User(
       id: model.user,
@@ -87,7 +89,8 @@ class IUserServiceImpl implements IUserService {
 
     await userRepository.updateRefreshToken(user);
 
-    return RefreshTokenViewModel(accessToken: newAccessToken, refreshToken: newRefreshToken);
+    return RefreshTokenViewModel(
+        accessToken: newAccessToken, refreshToken: newRefreshToken);
   }
 
   void _validateRefreshToken(UserRefreshTokenInputModel model) {
@@ -100,7 +103,7 @@ class IUserServiceImpl implements IUserService {
 
       final refreshTokenClain = JwtHelper.getClaims(refreshToken.last);
       refreshTokenClain.validate(issuer: model.accessToken);
-     } on ServiceException {
+    } on ServiceException {
       rethrow;
     } on JwtException catch (e) {
       log.error('Refresh token invalido', e);
@@ -109,4 +112,7 @@ class IUserServiceImpl implements IUserService {
       throw ServiceException('Erro ao validar refresh token');
     }
   }
+
+  @override
+  Future<User> findById(int id) => userRepository.findById(id);
 }

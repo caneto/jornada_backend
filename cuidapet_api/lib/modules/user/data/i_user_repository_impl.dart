@@ -25,8 +25,7 @@ class IUserRepositoryImpl implements IUserRepository {
     late final MySqlConnection? conn;
     try {
       conn = await connection.openConnection();
-      final query =
-          ''' 
+      final query = ''' 
         insert usuario(email, tipo_cadastro, img_avatar, senha, fornecedor_id, social_id) 
         value(?,?,?,?,?,?)
       ''';
@@ -62,8 +61,7 @@ class IUserRepositoryImpl implements IUserRepository {
     try {
       conn = await connection.openConnection();
 
-      var query =
-          '''
+      var query = '''
         select * 
         from usuario 
         where 
@@ -123,17 +121,15 @@ class IUserRepositoryImpl implements IUserRepository {
         final dataMysql = result.first;
         if (dataMysql['social_id'] == null ||
             dataMysql['social_id'] != socialKey) {
-          await conn.query(
-              '''
+          await conn.query('''
             update usuario
             set social_id = ?, tipo_cadastro = ?
             where id = ? 
-            ''',
-              [
-                socialKey,
-                socialType,
-                dataMysql['id'],
-              ]);
+            ''', [
+            socialKey,
+            socialType,
+            dataMysql['id'],
+          ]);
         }
 
         return User(
@@ -166,8 +162,7 @@ class IUserRepositoryImpl implements IUserRepository {
         setParams.putIfAbsent('android_token', () => user.androidToken);
       }
 
-      final query =
-          ''' 
+      final query = ''' 
         update usuario
         set 
           ${setParams.keys.elementAt(0)} = ?,
@@ -192,10 +187,46 @@ class IUserRepositoryImpl implements IUserRepository {
     try {
       conn = await connection.openConnection();
 
-      await conn.query('update usuario set refresh_token = ? where id = ?', [
-        user.refreshToken!,
-        user.id!
-      ]);
+      await conn.query('update usuario set refresh_token = ? where id = ?',
+          [user.refreshToken!, user.id!]);
+    } finally {
+      await conn?.close();
+    }
+  }
+
+  @override
+  Future<User> findById(int id) async {
+    MySqlConnection? conn;
+
+    try {
+      conn = await connection.openConnection();
+      final result = await conn.query('''
+        select 
+          id, email, tipo_cadastro, ios_token, android_token,
+          refresh_token, img_avatar, fornecedor_id
+        from usuario
+        where id = ?
+      ''', [id]);
+
+      if (result.isEmpty) {
+        log.error('Usuário não encontrado com o id[$id]');
+        throw UserNotfoundException(
+            message: 'Usuário não encontrado com o id[$id]');
+      } else {
+        final dataMysql = result.first;
+        return User(
+            id: dataMysql['id'] as int,
+            email: dataMysql['email'],
+            registerType: dataMysql['tipo_cadastro'],
+            iosToken: (dataMysql['ios_token'] as Blob?)?.toString(),
+            androidToken: (dataMysql['android_token'] as Blob?)?.toString(),
+            refreshToken: (dataMysql['refresh_token'] as Blob?)?.toString(),
+            imageAvatar: (dataMysql['img_avatar'] as Blob?)?.toString(),
+            supplierId: dataMysql['fornecedor_id']);
+      }
+    } on MySqlException catch (e, s) {
+      log.error('Erro ao buscar usuario por id', e, s);
+      throw DatabaseException();
     } finally {
       await conn?.close();
     }
