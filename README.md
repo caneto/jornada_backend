@@ -21,7 +21,7 @@
   
   <tr>
     <td> 
-      <b>Módulo usuário</b> (Modelagem de dados), (Registro usuário), (Login com e-mail e password), (Login social), (Confirmar login), (Postman atualizar variável dinamicamente), (Refresh Token)
+      <b>Módulo usuário</b> (Modelagem de dados), (Registro usuário), (Login com e-mail e password), (Login social), (Confirmar login), (Postman atualizar variável dinamicamente), (Refresh Token), (Recuperar usuário logado), (Atualizar url avatar)
     </td>
     <td>
     </td>
