@@ -13,5 +13,10 @@ Router _$UserControllerRouter(UserController service) {
     r'/',
     service.findByToken,
   );
+  router.add(
+    'PUT',
+    r'/',
+    service.updateAvatar,
+  );
   return router;
 }

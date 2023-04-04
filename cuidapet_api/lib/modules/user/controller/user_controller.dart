@@ -38,5 +38,10 @@ class UserController {
     }
    }
 
+   @Route.put('/')
+   Future<Response> updateAvatar(Request request) async{
+      return Response.ok(jsonEncode(''));
+   }
+
    Router get router => _$UserControllerRouter(this);
 }
