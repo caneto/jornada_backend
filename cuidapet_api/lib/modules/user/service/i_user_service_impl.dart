@@ -4,6 +4,7 @@ import 'package:cuidapet_api/modules/user/view_models/refresh_token_view_model.d
 import 'package:cuidapet_api/modules/user/view_models/update_url_avatar_view_model.dart';
 import 'package:cuidapet_api/modules/user/view_models/user_confirm_input_model.dart';
 import 'package:cuidapet_api/modules/user/view_models/user_refresh_token_input_model.dart';
+import 'package:cuidapet_api/modules/user/view_models/user_update_token_device_input_model.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:cuidapet_api/application/exceptions/user_notfound_exception.dart';
@@ -122,4 +123,12 @@ class IUserServiceImpl implements IUserService {
     await userRepository.updateUrlAvatar(viewModel.userId, viewModel.urlAvatar);
     return findById(viewModel.userId);
   }
+
+  @override
+  Future<void> updateDeviceToken(UserUpdateTokenDeviceInputModel model) =>
+      userRepository.updateDaviceToken(
+        model.userId,
+        model.token,
+        model.platform,
+      );
 }
