@@ -27,6 +27,7 @@
       <b>Módulo de categorias</b> (Construindo módulo), (Construindo Serviço de Buscar todas categorias)
     </td>
     <td>
+      <b>Módulo de fornecedores</b> (Criando e configurando módulo)
     </td>
   </tr>
 </table> 
