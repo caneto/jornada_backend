@@ -22,9 +22,10 @@ dependencies:
 
   jaguar_jwt: ^3.0.0
   crypto: ^3.0.2
+  http: ^0.13.1
 
 dev_dependencies:
-  http: ^0.13.0
+  
   lints: ^2.0.0
   test: ^1.21.0
   injectable_generator: ^2.1.4

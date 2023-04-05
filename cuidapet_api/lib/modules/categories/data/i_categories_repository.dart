@@ -1,5 +1,5 @@
 import 'package:cuidapet_api/entities/category.dart';
 
-abstract class ICategoriesService {
+abstract class ICategoriesRepository {
   Future<List<Category>> findAll();
 }

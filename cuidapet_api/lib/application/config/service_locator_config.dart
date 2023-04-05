@@ -1,5 +1,3 @@
-
-
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
@@ -12,4 +10,4 @@ final getIt = GetIt.instance;
   preferRelativeImports: true, // default  
   asExtension: true, // default  
 )  
-void configureDependencies() => getIt.init();  
+void configureDependencies() => getIt.init(); 
