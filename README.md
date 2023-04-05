@@ -24,7 +24,7 @@
       <b>Módulo usuário</b> (Modelagem de dados), (Registro usuário), (Login com e-mail e password), (Login social), (Confirmar login), (Postman atualizar variável dinamicamente), (Refresh Token), (Recuperar usuário logado), (Atualizar url avatar), (Atualização do Device Token (Para Push Notification))
     </td>
     <td>
-      <b>Módulo de categorias</b> (Construindo módulo)
+      <b>Módulo de categorias</b> (Construindo módulo), (Construindo Serviço de Buscar todas categorias)
     </td>
     <td>
     </td>
