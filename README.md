@@ -27,7 +27,7 @@
       <b>Módulo de categorias</b> (Construindo módulo), (Construindo Serviço de Buscar todas categorias)
     </td>
     <td>
-      <b>Módulo de fornecedores</b> (Criando e configurando módulo), (Busca de fornecedores por GeoLocation)
+      <b>Módulo de fornecedores</b> (Criando e configurando módulo), (Busca de fornecedores por GeoLocation), (Busca de fornecedor por id)
     </td>
   </tr>
 </table> 
