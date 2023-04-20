@@ -11,7 +11,12 @@ Router _$SupplierControllerRouter(SupplierController service) {
   router.add(
     'GET',
     r'/',
-    service.find,
+    service.findNearByMe,
+  );
+  router.add(
+    'GET',
+    r'/<id|[0-9]+>',
+    service.findById,
   );
   return router;
 }

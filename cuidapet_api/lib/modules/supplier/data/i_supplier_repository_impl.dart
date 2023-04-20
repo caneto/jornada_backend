@@ -1,10 +1,12 @@
 import 'package:cuidapet_api/dtos/supplier_nearby_me_dto.dart';
+import 'package:cuidapet_api/entities/category.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mysql1/mysql1.dart';
 
 import '../../../application/database/i_database_connection.dart';
 import '../../../application/exceptions/database_exception.dart';
 import '../../../application/logger/i_logger.dart';
+import '../../../entities/supplier.dart';
 import './i_supplier_repository.dart';
 
 @LazySingleton(as: ISupplierRepository)
@@ -58,4 +60,46 @@ class ISupplierRepositoryImpl implements ISupplierRepository {
       await conn?.close();
     }
   }
+
+  @override
+  Future<Supplier?> findById(int id) async {
+    MySqlConnection? conn;
+
+    try {
+      conn = await connection.openConnection();
+      final query = '''
+        select 
+          f.id, f.nome, f.logo, f.endereco, f.telefone, ST_X(f.latlng) as lat, ST_Y(f.latlng) as lng,
+          f.categorias_fornecedor_id, c.nome_categoria, c.tipo_categoria
+        from fornecedor as f
+          inner join categorias_fornecedor as c on (f.categorias_fornecedor_id = c.id)
+        where 
+          f.id = ?
+      ''';
+      final result = await conn.query(query, [id]);
+
+      if (result.isNotEmpty) {
+        final dataMysql = result.first;
+        return Supplier(
+          id: dataMysql['id'],
+          name: dataMysql['nome'],
+          logo: (dataMysql['logo'] as Blob?).toString(),
+          address: dataMysql['endereco'],
+          phone: dataMysql['telefone'],
+          lat: dataMysql['lat'],
+          lng: dataMysql['lng'],
+          category: Category(
+              id: dataMysql['categorias_fornecedor_id'],
+              name: dataMysql['nome_categoria'],
+              type: dataMysql['tipo_categoria']),
+        );
+      }
+    } on MySqlException catch (e, s) {
+      log.error('Erro ao buscar fornecedor', e, s);
+      throw DatabaseException();
+    } finally {
+      await conn?.close();
+    }
+  }
+
 }
