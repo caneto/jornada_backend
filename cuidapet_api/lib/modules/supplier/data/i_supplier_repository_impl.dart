@@ -7,6 +7,7 @@ import '../../../application/database/i_database_connection.dart';
 import '../../../application/exceptions/database_exception.dart';
 import '../../../application/logger/i_logger.dart';
 import '../../../entities/supplier.dart';
+import '../../../entities/supplier_service.dart';
 import './i_supplier_repository.dart';
 
 @LazySingleton(as: ISupplierRepository)
@@ -26,8 +27,7 @@ class ISupplierRepositoryImpl implements ISupplierRepository {
 
     try {
       conn = await connection.openConnection();
-      final query =
-          ''' 
+      final query = ''' 
         SELECT f.id, f.nome, f.logo, f.categorias_fornecedor_id,
           (6371 *
             acos(
@@ -102,4 +102,35 @@ class ISupplierRepositoryImpl implements ISupplierRepository {
     }
   }
 
+  @override
+  Future<List<SupplierService>> findServicesBySupplierId(int supplierId) async {
+    MySqlConnection? conn;
+
+    try {
+      conn = await connection.openConnection();
+      final result = await conn.query('''
+        select id, fornecedor_id, nome_servico, valor_servico
+        from fornecedor_servicos
+        where fornecedor_id = ?
+      ''', [supplierId]);
+
+      if (result.isEmpty) {
+        return [];
+      }
+
+      return result
+          .map((s) => SupplierService(
+                id: s['id'],
+                supplierId: s['fornecedor_id'],
+                name: s['nome_servico'],
+                price: s['valor_servico'],
+              ))
+          .toList();
+    } on MySqlException catch (e, s) {
+      log.error('Erro ao buscar os servicos de um fornecedor', e, s);
+      throw DatabaseException();
+    } finally {
+      await conn?.close();
+    }
+  }
 }
