@@ -9,7 +9,6 @@ import 'package:shelf_router/shelf_router.dart';
 import '../service/i_schedule_service.dart';
 import '../view_models/schedule_save_input_model.dart';
 
-
 part 'schedule_controller.g.dart';
 
 @Injectable()
@@ -32,6 +31,19 @@ class ScheduleController {
       return Response.ok(jsonEncode({}));
     } catch (e, s) {
       log.error('Erro ao salvar agendamento', e, s);
+      return Response.internalServerError();
+    }
+  }
+
+  // /schedules/1/status/C
+  @Route.put('/<scheduleId|[0-9]+>/status/<status>')
+  Future<Response> changeStatus(
+      Request request, String scheduleId, String status) async {
+    try {
+      await service.changeStatus(status, int.parse(scheduleId));
+      return Response.ok(jsonEncode({}));
+    } catch (e, s) {
+      log.error('Erro ao alterar status do agendamento', e, s);
       return Response.internalServerError();
     }
   }
