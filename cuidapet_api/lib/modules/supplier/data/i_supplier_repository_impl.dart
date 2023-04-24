@@ -133,20 +133,47 @@ class ISupplierRepositoryImpl implements ISupplierRepository {
       await conn?.close();
     }
   }
-  
+
   @override
   Future<bool> checkUserEmailExists(String email) async {
-     MySqlConnection? conn;
+    MySqlConnection? conn;
 
     try {
       conn = await connection.openConnection();
-      final result = await conn.query('select count(*) from usuario where email = ?', [email]);
+      final result = await conn
+          .query('select count(*) from usuario where email = ?', [email]);
       final dataMysql = result.first;
 
       return dataMysql[0] > 0;
-
     } on MySqlException catch (e, s) {
       log.error('Erro ao buscar os servicos de um fornecedor', e, s);
+      throw DatabaseException();
+    } finally {
+      await conn?.close();
+    }
+  }
+
+  @override
+  Future<int> saveSupplier(Supplier supplier) async {
+    MySqlConnection? conn;
+
+    try {
+      conn = await connection.openConnection();
+      final result = await conn.query('''
+        insert into fornecedor(nome, logo, endereco, telefone, latlng, categorias_fornecedor_id)
+        values (?,?,?,?,ST_GeomFromText(?),?)
+      ''', [
+        supplier.name,
+        supplier.logo,
+        supplier.address,
+        supplier.phone,
+        'POINT(${supplier.lat ?? 0} ${supplier.lng ?? 0})',
+        supplier.category?.id
+      ]);
+
+      return result.insertId ?? 0;
+    } on MySqlException catch (e, s) {
+      log.error('Erro ao cadastrar novo fornecedor', e, s);
       throw DatabaseException();
     } finally {
       await conn?.close();
