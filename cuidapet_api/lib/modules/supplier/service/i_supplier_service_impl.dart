@@ -9,6 +9,7 @@ import '../../user/service/i_user_service.dart';
 import '../../user/view_models/user_save_input_model.dart';
 import '../data/i_supplier_repository.dart';
 import '../view_models/create_supplier_user_view_model.dart';
+import '../view_models/supplier_update_input_model.dart';
 import './i_supplier_service.dart';
 
 @LazySingleton(as: ISupplierService)
@@ -52,5 +53,20 @@ class ISupplierServiceImpl implements ISupplierService {
     );
 
     await userService.createUser(userInputModel);
+  }
+  
+  @override
+  Future<Supplier> update(SupplierUpdateInputModel model) async {
+    var supplier = Supplier(
+        id: model.supplierId,
+        name: model.name,
+        address: model.address,
+        lat: model.lat,
+        lng: model.lng,
+        logo: model.logo,
+        phone: model.phone,
+        category: Category(id: model.categoryId));
+
+    return await repository.update(supplier);
   }    
 }

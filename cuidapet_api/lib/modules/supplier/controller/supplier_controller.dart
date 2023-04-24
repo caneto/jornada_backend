@@ -8,6 +8,7 @@ import '../../../application/logger/i_logger.dart';
 import '../../../entities/supplier.dart';
 import '../service/i_supplier_service.dart';
 import '../view_models/create_supplier_user_view_model.dart';
+import '../view_models/supplier_update_input_model.dart';
 
 part 'supplier_controller.g.dart';
 
@@ -114,6 +115,28 @@ class SupplierController {
           body: jsonEncode({
         'message': 'Erro ao cadastrar um novo fornecedor e usuário',
       }));
+    }
+  }
+
+  @Route.put('/')
+  Future<Response> update(Request request) async {
+    try {
+      final supplier = int.tryParse(request.headers['supplier'] ?? '');
+      
+      if (supplier == null) {
+        return Response(400,
+            body: jsonEncode({'message': 'código fornecedor não pode ser nulo'}));
+      }
+      
+      final model = SupplierUpdateInputModel(
+          supplierId: supplier, dataRequest: await request.readAsString());
+      
+      final supplierResponse = await service.update(model);
+      
+      return Response.ok(_supplierMapper(supplierResponse));
+    } catch (e, s) {
+      log.error('Erro ao atualizar fornecedor', e, s);
+      return Response.internalServerError();
     }
   }
 
