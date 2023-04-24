@@ -30,6 +30,18 @@
       <b>Módulo de fornecedores</b> (Criando e configurando módulo), (Busca de fornecedores por GeoLocation), (Busca de fornecedor por id), (Buscar serviços de um fornecedor), (Verificar se email do usuário existe), (Criando novo Fornecedor e usuário), (Atualizando dados do Fornecedor)
     </td>
   </tr>
+  
+  
+  <tr>
+    <td> 
+      <b>Migrando Driver do Mysql para Null Safety</b> (Migrando Driver do Mysql para Null Safety)
+    </td>
+    <td>
+      <b>Módulo de Agendamento</b> (Criando módulo)
+    </td>
+    <td>
+    </td>
+  </tr>
 </table> 
 
   
