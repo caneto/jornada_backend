@@ -37,7 +37,7 @@
       <b>Migrando Driver do Mysql para Null Safety</b> (Migrando Driver do Mysql para Null Safety)
     </td>
     <td>
-      <b>Módulo de Agendamento</b> (Criando módulo), (Agendando serviço em um fornecedor), (Alterando status do agendamento), (Buscar todos agendamentos pelo usuário logado)
+      <b>Módulo de Agendamento</b> (Criando módulo), (Agendando serviço em um fornecedor), (Alterando status do agendamento), (Buscar todos agendamentos pelo usuário logado),(Buscar todos agendamentos pelo usuário de fornecedor logado)
     </td>
     <td>
     </td>
