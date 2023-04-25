@@ -11,7 +11,7 @@ import './i_schedule_service.dart';
 @LazySingleton(as: IScheduleService)
 class IScheduleServiceImpl implements IScheduleService {
   final IScheduleRepository repository;
-  
+
   IScheduleServiceImpl({
     required this.repository,
   });
@@ -36,4 +36,8 @@ class IScheduleServiceImpl implements IScheduleService {
   @override
   Future<void> changeStatus(String status, int scheduleId) =>
       repository.changeStatus(status, scheduleId);
+
+  @override
+  Future<List<Schedule>> findAllSchedulesByUser(int userId) =>
+      repository.findAllSchedulesByUser(userId);
 }
